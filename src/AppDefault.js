@@ -1,18 +1,24 @@
 // import logo from './logo.svg';
 import "./App.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { nanoid } from "nanoid";
 
 function App() {
   const [todo, setTodo] = useState("");
   const [exercise, setExercise] = useState([]);
   const [saveEdit, setSaveEdit] = useState("");
-
+  const focusOnInput = useRef(null);
+  const time = new Date().toLocaleTimeString("en-US", {
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   const addExercise = () => {
     if (todo) {
       exercise.push({
         id: nanoid(),
         value: todo,
+        time,
         completed: false,
       });
       setExercise([...exercise]);
@@ -40,14 +46,13 @@ function App() {
   const editTodo = (item) => {
     setTodo(item.value);
     setSaveEdit(item.id);
+    focusOnInput.current.focus();
   };
 
   const handleEditTodo = () => {
     if (saveEdit) {
       const saveExercise = exercise.map((item) =>
-        item.id === saveEdit
-          ? { ...item, value: todo, completed: false }
-          : item
+        item.id === saveEdit ? { ...item, value: todo, completed: false, time } : item
       );
       console.log(saveExercise);
 
@@ -80,11 +85,13 @@ function App() {
         <ul>
           {exercise.map((item) => (
             <li className="Item__Todo" key={item.id}>
+              <span className='Item__Time'>{item.time}</span>
               <div
                 onClick={() => toggle(item.id)}
                 className={item.completed ? "Item__Li_done" : "Item__Li"}
                 key={item.id}
               >
+
                 {item.value}
               </div>
               <button onClick={() => editTodo(item)}>Edit</button>

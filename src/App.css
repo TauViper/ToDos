@@ -6,13 +6,34 @@
 .Item__Todo{
   display: flex;
 }
+button{
+  border: 2px solid black;
+  margin: 0 5px;
+}
 .Item__Li{
+  font-size: 18px;
+  text-align: center;
+  width: 65px;
   cursor: pointer;
   list-style-type: none;
 }
 .Item__Li_done{
+  font-size: 18px;
+  text-align: center;
+  width: 65px;
   cursor: pointer;
   list-style-type: none;
   text-decoration: line-through;
 
+}
+.Item__task{
+  margin-left: 25px;
+}
+ul{
+  margin: 12px 0 0 0 ;
+  padding: 0;
+}
+.Item__Time{
+  border: 2px solid black;
+  margin-right: 12px;
 }
